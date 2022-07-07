@@ -1,9 +1,10 @@
 // change import at top
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 // import Pet from "./Pet";
 // at top, replace import from Pet.js
 import Results from "./Results";
 import useBreedList from "./useBreedList";
+import ThemeContext from "./ThemeContext";
 
 // in SearchParams.js
 // import { useState } from "react";
@@ -12,6 +13,10 @@ import useBreedList from "./useBreedList";
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 const SearchParams = () => {
+  // top of SearchParams function body
+  // also grab setTheme
+  const [theme, setTheme] = useContext(ThemeContext);
+
   // add to the other useStates inside component at top
   const [pets, setPets] = useState([]);
   // replace location
@@ -107,7 +112,22 @@ const SearchParams = () => {
             ))}
           </select>
         </label>
-        <button>Submit</button>
+        <label htmlFor="theme">
+          Theme
+          <select
+            value={theme}
+            onChange={(e) => setTheme(e.target.value)}
+            onBlur={(e) => setTheme(e.target.value)}
+          >
+            <option value="peru">Peru</option>
+            <option value="darkblue">Dark Blue</option>
+            <option value="chartreuse">Chartreuse</option>
+            <option value="mediumorchid">Medium Orchid</option>
+          </select>
+        </label>
+        {/* replace button */}
+        <button style={{ backgroundColor: theme }}>Submit</button>
+        {/* <button>Submit</button> */}
       </form>
       {/* // in jsx, under form, inside the larger div
       {pets.map((pet) => (

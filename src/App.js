@@ -56,10 +56,18 @@
 //============>>>>>> Add SearchParams.js
 
 // import at top
-import { StrictMode } from "react";
+import { StrictMode, useState } from "react";
 import { render } from "react-dom";
 // delete Pet import, and add SearchParams
 import SearchParams from "./SearchParams";
+import ThemeContext from "./ThemeContext";
+
+// at top
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Details from "./Details";
+
+// import Link too
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 //code for add searchParams.js
 // const App = () => {
@@ -76,16 +84,31 @@ import SearchParams from "./SearchParams";
 // render(<App />, document.getElementById("root"));
 
 //code using strict mode
-
 // replace App
 const App = () => {
+  // top of App function body
+  const theme = useState("darkblue");
   return (
-    <StrictMode>
-      <div>
-        <h1>Adopt Me!</h1>
-        <SearchParams />
-      </div>
-    </StrictMode>
+    <ThemeContext.Provider value={theme}>
+      <StrictMode>
+        <div>
+          {/* <h1>Adopt Me!</h1> */}
+          {/* <SearchParams /> */}
+          <BrowserRouter>
+            {/*  replace h1 */}
+            <header>
+              <Link to="/">Adopt Me!</Link>
+            </header>
+            {/* <h1>Adopt Me!</h1> */}
+            <Routes>
+              <Route path="/details/:id" element={<Details />} />
+              <Route path="/" element={<SearchParams />} />
+            </Routes>
+          </BrowserRouter>
+          ;
+        </div>
+      </StrictMode>
+    </ThemeContext.Provider>
   );
 };
 
